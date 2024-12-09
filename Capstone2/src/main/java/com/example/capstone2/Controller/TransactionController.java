@@ -19,11 +19,11 @@ public class TransactionController {
         return ResponseEntity.ok(transactionService.getAllTransactions());
     }
     @PostMapping("/addTransaction/{adminId}")
-    public ResponseEntity addTransaction(@PathVariable Integer adminId, Integer buyer , Integer seller  ,@RequestBody@Valid Transaction transaction , Errors errors) {
+    public ResponseEntity addTransaction(@PathVariable Integer adminId ,@RequestBody@Valid Transaction transaction , Errors errors) {
         if (errors.hasErrors()) {
             return ResponseEntity.badRequest().body(errors.getFieldError().getDefaultMessage());
         }
-        transactionService.addTransaction( adminId , buyer , seller, transaction);
+        transactionService.addTransaction( adminId , transaction);
         return ResponseEntity.ok().body("transaction is added successfully");
     }
 

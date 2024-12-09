@@ -20,23 +20,21 @@ public class TransactionService {
         return transactionRepository.findAll();
     }
 
-    public void addTransaction(Integer adminId  , Integer buyer , Integer seller , Transaction transaction) {
-//        User user1 = userRepository.findUserById(buyer);
-//        User user2 = userRepository.findUserById(seller);
-        Car car = carRepository.findCarByIdAndUserId(transaction.getCarId() , seller);
+    public void addTransaction(Integer adminId , Transaction transaction) {
+        User user1 = userRepository.findUserById(transaction.getBuyerID());
+        User user2 = userRepository.findUserById(transaction.getSellerID());
+        Car car = carRepository.findCarByIdAndUserId(transaction.getCarId() , transaction.getSellerID());
         Admin admin = adminRepository.findAdminById(adminId);
-//        if (user1!=null){
-//            if (user2!=null){
-//                if (car!=null){
+        if (user1!=null){
+            if (user2!=null){
+                if (car!=null){
                     if (admin!=null){
-                        transaction.setBuyerID(buyer);
-                        transaction.setSellerID(seller);
-                        transaction.setCarId(car.getId());
                         transactionRepository.save(transaction);
                     }else throw new ApiExcption("admin is not found");
-//                }else throw new ApiExcption("car is not found");
-//            }else throw new ApiExcption("seller is not found");
-//        }else throw new ApiExcption("buyer is not found");
+
+                }else throw new ApiExcption("car is not found");
+            }else throw new ApiExcption("seller is not found");
+        }else throw new ApiExcption("buyer is not found");
 
     }
 

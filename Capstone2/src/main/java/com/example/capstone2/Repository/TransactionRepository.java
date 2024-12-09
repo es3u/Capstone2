@@ -9,6 +9,5 @@ import java.util.List;
 @Repository
 public interface TransactionRepository extends JpaRepository<Transaction, Integer> {
     Transaction findTransactionById(Integer id);
-
     List<Transaction> findTransactionByStatus(Boolean status);
 }
